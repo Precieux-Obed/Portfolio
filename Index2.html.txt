@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=DM+Mono&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --accent: #ff0000; 
+            --text: #F7F5F0;
+            --border: #2D2D2A;
+            --card-bg: #141414;
+        }
+
+        body { 
+            margin: 0; font-family: 'Syne', sans-serif; background: var(--bg); color: var(--text);
+            overflow-x: hidden; cursor: none;
+        }
+
+        #custom-cursor {
+            position: fixed; width: 10px; height: 10px; background: var(--accent);
+            border-radius: 50%; pointer-events: none; z-index: 10005;
+            box-shadow: 0 0 15px var(--accent);
+            transform: translate(-50%, -50%);
+        }
+
+        /* ── LE CRÂNE ── */
+        .shape-skull {
+            position: absolute; top: 15%; right: 10%; font-size: 22rem;
+            z-index: 1; opacity: 0.07; pointer-events: none; color: white;
+            animation: skull-float 6s infinite ease-in-out;
+            font-family: serif; 
+        }
+        @keyframes skull-float { 
+            0%, 100% { transform: translateY(0) rotate(0deg); } 
+            50% { transform: translateY(-30px) rotate(5deg); } 
+        }
+
+        /* ── IMPACT HAKI ── */
+        .pression-spirituelle {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 0; height: 0; background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            border-radius: 50%; opacity: 0; pointer-events: none; z-index: 10001;
+        }
+        @keyframes reiatsu {
+            0% { width: 0; height: 0; opacity: 0.5; filter: blur(5px); }
+            100% { width: 200vw; height: 200vw; opacity: 0; filter: blur(30px); }
+        }
+
+        /* ── HALO NAV ── */
+        .nav-halo {
+            position: fixed; border-radius: 50%; pointer-events: none; z-index: 10002;
+            opacity: 0; transform: translate(-50%, -50%) scale(0);
+            background: radial-gradient(circle, rgba(255,0,0,0.25) 0%, rgba(255,0,0,0.08) 40%, transparent 70%);
+        }
+        @keyframes halo-burst {
+            0%   { opacity: 0.7; transform: translate(-50%, -50%) scale(0); }
+            60%  { opacity: 0.3; }
+            100% { opacity: 0;   transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* ── CONTENEUR IMAGE WANTED ── */
+        #wanted-container {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            display: none; z-index: 9999;
+            width: 380px;
+        }
+        .poster-img { 
+            width: 100%; height: auto; border-radius: 8px;
+            object-fit: contain; display: block;
+            box-shadow: 0 0 40px rgba(0,0,0,0.9);
+        }
+
+        /* ── NAVIGATION ── */
+        .nav { display: flex; justify-content: space-between; padding: 1.5rem 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,10,0.9); backdrop-filter: blur(10px); z-index: 10; align-items: center; }
+        .nav-link { color: #888; text-decoration: none; cursor: pointer; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; position: relative; }
+        .nav-link:hover { color: var(--accent); }
+
+        .pirate-title { font-family: 'Pirata One', cursive; color: var(--accent); font-size: 3rem; margin: 0; }
+
+        /* ── PAGES ── */
+        .page { display: none; padding: 5vh 10%; min-height: 90vh; position: relative; }
+        .page.active { display: block; }
+
+        .title-huge { font-size: clamp(3rem, 8vw, 5rem); font-weight: 800; line-height: 0.85; margin-bottom: 1rem; position: relative; z-index: 2; }
+        
+        /* ── STYLE PROFIL ── */
+        .grid-profil { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; margin-top: 3rem; position: relative; z-index: 2; }
+        .bio-text { font-size: 1.05rem; line-height: 1.7; color: #BBB; margin-bottom: 1.5rem; }
+        .bio-text b { color: var(--text); }
+        
+        .exp-container { margin-top: 2rem; }
+        .exp-item { border-left: 2px solid var(--accent); padding-left: 25px; position: relative; margin-bottom: 30px; }
+        .exp-item::before { content: ''; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; }
+        .exp-role { font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .exp-company { font-family: 'DM Mono'; color: var(--accent); font-size: 0.9rem; margin-bottom: 10px; }
+        .exp-list { padding-left: 15px; color: #888; font-size: 0.95rem; line-height: 1.6; }
+
+        .certif-link { 
+            display: flex; align-items: center; background: #111; padding: 15px 20px; 
+            border-radius: 4px; margin-bottom: 15px; border: 1px solid var(--border);
+            text-decoration: none; color: white; transition: 0.4s;
+        }
+        .certif-link:hover { border-color: var(--accent); transform: translateY(-5px); }
+
+        /* ── STYLE PROJETS ── */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .project-card { background: var(--card-bg); border: 1px solid var(--border); padding: 2rem; transition: 0.4s; }
+        .project-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .project-num { font-family: 'DM Mono'; color: var(--accent); font-size: 0.9rem; }
+
+        .btn-action {
+            display: inline-block; padding: 1.2rem 2.5rem;
+            background: transparent; border: 2px solid var(--accent); color: var(--accent);
+            text-decoration: none; font-weight: 800; text-transform: uppercase;
+            transition: 0.3s; cursor: pointer; margin-top: 1rem; letter-spacing: 2px;
+        }
+        .btn-action:hover { background: var(--accent); color: white; box-shadow: 0 0 30px var(--accent); }
+
+        #news-coo { position: fixed; top: 20%; right: -200px; width: 150px; z-index: 10000; pointer-events: none; }
+
+        /* ── VEILLE ── */
+        .veille-content { max-width: 900px; margin-top: 2rem; position: relative; z-index: 2; }
+        .veille-section { margin-bottom: 2.5rem; }
+        .veille-h2 { font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; border-left: 3px solid var(--accent); padding-left: 15px; }
+        .veille-h3 { font-size: 1.2rem; font-weight: 700; color: var(--accent); margin: 1.2rem 0 0.4rem; font-family: 'DM Mono'; }
+        .veille-p { color: #BBB; line-height: 1.7; font-size: 0.95rem; }
+        .veille-p b { color: var(--text); }
+        .veille-p em { color: var(--accent); font-style: italic; }
+        .veille-ul { color: #BBB; padding-left: 1.5rem; line-height: 1.9; font-size: 0.95rem; }
+        .veille-ul li b { color: var(--text); }
+        .veille-ol { color: #BBB; padding-left: 1.5rem; line-height: 1.9; font-size: 0.95rem; }
+        .veille-ol li b { color: var(--text); }
+        .veille-ol li ul { margin-top: 0.3rem; }
+        .veille-quote { border-left: 3px solid var(--accent); padding: 1rem 1.5rem; background: #111; color: #CCC; font-style: italic; font-size: 0.95rem; line-height: 1.7; margin-top: 1rem; }
+
+        /* ── BTS SIO ── */
+        .bts-content { max-width: 900px; margin-top: 2rem; position: relative; z-index: 2; }
+        .bts-section { margin-bottom: 2.5rem; }
+        .bts-h2 { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .bts-p { color: #BBB; line-height: 1.7; font-size: 0.95rem; margin-bottom: 1rem; }
+        .bts-p b { color: var(--text); }
+        .bts-ul { color: #BBB; padding-left: 1.5rem; line-height: 1.9; font-size: 0.95rem; }
+        .bts-ul li b { color: var(--text); }
+        .option-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 1.5rem; border-radius: 4px; transition: 0.3s; }
+        .option-card:hover { border-color: var(--accent); }
+        .option-title { font-family: 'DM Mono'; color: var(--accent); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+
+        /* ── E6 ── */
+        .e6-project { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-top: 3rem; }
+        .e6-img { width: 100%; border-radius: 8px; object-fit: cover; aspect-ratio: 4/3; border: 1px solid var(--border); }
+        .e6-info h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.4; }
+        .btn-fiche { display: inline-block; padding: 0.7rem 1.5rem; border: 2px solid #c8a84b; color: #c8a84b; font-weight: 700; font-size: 0.85rem; text-decoration: none; margin-right: 10px; margin-bottom: 10px; transition: 0.3s; cursor: pointer; background: transparent; letter-spacing: 1px; }
+        .btn-fiche:hover { background: #c8a84b; color: #000; }
+        .btn-doc { display: inline-block; padding: 0.7rem 1.5rem; border: 2px solid var(--text); color: var(--text); font-weight: 700; font-size: 0.85rem; text-decoration: none; margin-right: 10px; margin-bottom: 10px; transition: 0.3s; cursor: pointer; background: transparent; letter-spacing: 1px; }
+        .btn-doc:hover { background: var(--text); color: #000; }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+    <div class="pression-spirituelle" id="haki-impact"></div>
+    <div class="nav-halo" id="nav-halo"></div>
+    <img id="news-coo" src="https://i.ibb.co/LpYf2G9/news-coo.png" alt="News Coo">
+
+    <div id="wanted-container">
+        <img id="poster-img" src="" class="poster-img">
+    </div>
+
+    <nav class="nav">
+        <div class="pirate-title">PRÉCIEUX.</div>
+        <div style="display:flex; gap:30px;">
+            <a class="nav-link" onclick="triggerNav('home', '550x807.jpg', event)">Accueil</a>
+            <a class="nav-link" onclick="triggerNav('profil', 'zoro.webp', event)">Profil</a>
+            <a class="nav-link" onclick="triggerNav('bts', 'zoro.webp', event)">BTS SIO</a>
+            <a class="nav-link" onclick="triggerNav('projects', 'ussop.webp', event)">Projets</a>
+            <a class="nav-link" onclick="triggerNav('e6', 'prime-croco.webp', event)">E6</a>
+            <a class="nav-link" onclick="triggerNav('veille', 'Eb6tGH5XQAAr_Z9.jpg', event)">Veille</a>
+        </div>
+    </nav>
+
+    <!-- ACCUEIL -->
+    <section id="home" class="page active">
+        <div class="shape-skull">☠</div>
+        <h1 class="title-huge">PRÉCIEUX<br>KIAMPANA.</h1>
+        <p style="font-family: 'DM Mono'; color: var(--accent);">[ ÉTUDIANT EN BTS SIO SISR ]</p>
+        <p style="font-family: 'DM Mono'; color: #888; margin-bottom: 2rem;">ADMIN SYSTEME & SECURITE</p>
+        <button class="btn-action" style="border-color: white; color: white;" onclick="triggerNav('profil', 'zoro.webp', event)">DÉCOUVRIR LE PROFIL</button>
+    </section>
+
+    <!-- PROFIL -->
+    <section id="profil" class="page">
+        <h1 class="title-huge">PROFIL_<em>19Y</em></h1>
+        <div class="grid-profil">
+            <div>
+                <p class="bio-text">Je m'appelle <b>Kiampana Précieux</b>, j'ai 19 ans. J'ai choisi cette formation parce que je suis passionné par le domaine de l'informatique depuis mon enfance, et j'aime comprendre comment les systèmes, les réseaux et les applications fonctionnent. Curieux et motivé, je cherche toujours à apprendre de nouvelles compétences, mon objectif est de développer des compétences solides pour évoluer dans le domaine informatique et de contribuer plus tard à des projets innovants. Je suis également ouvert aux stages et opportunités qui permettront de gagner de l'expérience professionnelle.</p>
+
+                <p class="bio-text">Après l'obtention de mon BTS SIO, je souhaite poursuivre mes études afin de me spécialiser dans le domaine de la cybersécurité. Ce secteur m'intéresse particulièrement, car il joue aujourd'hui un rôle essentiel dans la protection des données, des réseaux et des infrastructures numériques.</p>
+
+                <p class="bio-text">Mon objectif est d'intégrer une licence ou un bachelor en cybersécurité, puis de continuer vers un master (Bac+5) pour développer des compétences avancées en analyse des risques, sécurité des systèmes, tests d'intrusion, sécurisation des réseaux ou encore réponse aux incidents.</p>
+
+                <p class="bio-text">À long terme, j'aimerais évoluer vers un poste tel que : <b>Administrateur Sécurité</b></p>
+                
+                <div class="exp-container">
+                    <h3 style="text-transform: uppercase;">Expérience Professionnelle</h3>
+                    <div class="exp-item">
+                        <div class="exp-role">Stagiaire IT</div>
+                        <div class="exp-company">GXO Logistics Fashion France // Mars - Avril 2026</div>
+                        <ul class="exp-list">
+                            <li>Gestion et organisation du matériel (inventaire, suivi des équipements)</li>
+                            <li>Entretien et maintenance d'équipements professionnels</li>
+                            <li>Intervention technique et support utilisateur</li>
+                            <li>Participation au déploiement de solutions réseau</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="CV_2026-02-16_Precieux.pdf" target="_blank" class="btn-action">TÉLÉCHARGER CV</a>
+            </div>
+            <div>
+                <h3 style="text-transform: uppercase; color: var(--accent);">Certifications</h3>
+                <div class="certif-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" width="25" style="margin-right:15px;">
+                    <div><div style="font-weight: 800;">Networking Basics</div><div style="font-family:'DM Mono'; font-size:0.8rem; color:#888;">Cisco Academy</div></div>
+                </div>
+                <div class="certif-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" width="25" style="margin-right:15px;">
+                    <div><div style="font-weight: 800;">Intro to Cybersecurity</div><div style="font-family:'DM Mono'; font-size:0.8rem; color:#888;">Cisco Academy</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BTS SIO -->
+    <section id="bts" class="page">
+        <h1 class="title-huge">BTS_<em>SIO</em></h1>
+        <div class="bts-content">
+            <div class="bts-section">
+                <div class="bts-h2">Qu'est-ce que le BTS SIO ?</div>
+                <p class="bts-p">Le <b>Brevet de Technicien Supérieur en Services Informatiques aux Organisations (BTS SIO)</b> est un diplôme de deux ans après le baccalauréat qui offre une formation pratique en informatique. Il permet également la possibilité de poursuivre ses études par la suite. Ce programme enseigne des compétences essentielles en support informatique, services informatiques et cybersécurité. Au terme du premier semestre, il propose deux options <b>(SISR et SLAM)</b>, permettant d'acquérir des compétences supplémentaires : l'administration des systèmes et des réseaux (SISR) ou la conception et le développement d'applications (SLAM).</p>
+            </div>
+
+            <div class="option-card">
+                <div class="option-title">— OPTION SISR</div>
+                <p class="bts-p">L'option <b>SISR (solutions d'infrastructure, systèmes et réseaux)</b> du BTS SIO se concentre sur trois domaines clés :</p>
+                <ul class="bts-ul">
+                    <li><b>Support informatique :</b> Gérer les services informatiques existants, répondre aux besoins des utilisateurs et promouvoir la transformation numérique.</li>
+                    <li><b>Cybersécurité :</b> Protéger les infrastructures, données et équipements informatiques tout en analysant les risques.</li>
+                    <li><b>Administration des systèmes et réseaux :</b> Concevoir, installer, tester, déployer et superviser les infrastructures réseau.</li>
+                </ul>
+                <p class="bts-p" style="margin-top:1rem;">Cette option prépare les diplômés à contribuer à la fourniture de services informatiques en mettant en place des solutions d'infrastructure et en assurant un fonctionnement optimal.</p>
+                <p class="bts-p" style="margin-top:0.8rem;"><b>Débouchés avec un BTS SIO SISR :</b></p>
+                <ul class="bts-ul">
+                    <li>Technicien de production</li>
+                    <li>Technicien d'infrastructure</li>
+                    <li>Technicien réseau et télécoms</li>
+                    <li>Technicien systèmes et réseaux</li>
+                    <li>Administrateur systèmes et réseaux</li>
+                    <li>Support systèmes et réseaux</li>
+                    <li>Pilote d'exploitation</li>
+                    <li>Informaticien support et déploiement</li>
+                </ul>
+            </div>
+
+            <div class="option-card">
+                <div class="option-title">— OPTION SLAM</div>
+                <p class="bts-p">L'option <b>SLAM (Solutions Logicielles et Applications Métier)</b> du BTS SIO forme aux compétences suivantes :</p>
+                <ul class="bts-ul">
+                    <li><b>Support informatique :</b> Assurer la disponibilité des services informatiques, accompagner la transformation numérique, gérer le patrimoine informatique, résoudre les incidents et développer la présence en ligne de l'entreprise.</li>
+                    <li><b>Cybersécurité :</b> Protéger les données, l'identité numérique de l'entreprise, sécuriser les équipements et les usages, et participer à la sécurisation des solutions applicatives.</li>
+                    <li><b>Conception et développement d'applications :</b> Concevoir, développer, déployer et maintenir des solutions logicielles, avec des compétences en bases de données et gestion de version.</li>
+                </ul>
+                <p class="bts-p" style="margin-top:1rem;">En optant pour SLAM, les diplômés seront prêts à travailler dans la conception et la maintenance de programmes applicatifs, ainsi qu'à gérer les aspects informatiques au sein des entreprises.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJETS E5 -->
+    <section id="projects" class="page">
+        <h1 class="title-huge">DOSSIER_<em>E5</em></h1>
+        <div class="projects-grid">
+            <div class="project-card">
+                <span class="project-num">#01_SYS</span>
+                <h3>Virtualisation Proxmox</h3>
+                <p style="color:#888;">Migration et gestion de serveurs virtuels.</p>
+            </div>
+            <div class="project-card">
+                <span class="project-num">#02_SUPERVISION</span>
+                <h3>Supervision Zabbix</h3>
+                <p style="color:#888;">Monitoring complet des infrastructures réseau.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- E6 -->
+    <section id="e6" class="page">
+        <h1 class="title-huge">EPREUVE_<em>E6</em></h1>
+        <div class="e6-project">
+            <div>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Réseau VLAN" class="e6-img">
+            </div>
+            <div class="e6-info">
+                <h3>Projet 1 : Mise en œuvre d'une segmentation réseau par VLANs et routage inter-VLAN</h3>
+                <div>
+                    <a href="#" class="btn-fiche">Fiche de situation</a>
+                    <a href="#" class="btn-doc">Documentation technique</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VEILLE -->
+    <section id="veille" class="page">
+        <h1 class="title-huge">VEILLE_<em>TECH</em></h1>
+        <div class="veille-content">
+
+            <div class="veille-section">
+                <div class="veille-h2">HYDRA (PENTEST)</div>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">QU'EST-CE QUE HYDRA ?</div>
+                <p class="veille-p"><b>Hydra</b> (souvent appelé <em>THC-Hydra</em>) est un outil open source de <b>bruteforce d'authentification</b> utilisé en tests d'intrusion (pentest).</p>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">Objectif principal</div>
+                <p class="veille-p">Tester la <b>robustesse des mécanismes d'authentification</b> d'un système en essayant automatiquement des combinaisons de mots de passe.</p>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">Protocoles supportés (les plus courants)</div>
+                <p class="veille-p">Hydra fonctionne sur de nombreux services, notamment :</p>
+                <ul class="veille-ul">
+                    <li>SSH</li>
+                    <li>FTP</li>
+                    <li>HTTP / HTTPS (login web)</li>
+                    <li>Telnet</li>
+                    <li>SMB</li>
+                    <li>RDP</li>
+                    <li>SMTP / POP3 / IMAP</li>
+                </ul>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">Cas d'usage en pentest — Utilisations légitimes (en audit sécurité)</div>
+                <p class="veille-p">Hydra est utilisé pour :</p>
+                <ul class="veille-ul">
+                    <li>Vérifier si des <b>mots de passe faibles</b> existent sur un système</li>
+                    <li>Tester la <b>résistance à une attaque brute force</b></li>
+                    <li>Évaluer la présence de <b>protections anti-bruteforce</b></li>
+                    <li>Simuler une attaque réaliste d'un attaquant externe</li>
+                </ul>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">Ma méthode de veille</div>
+                <p class="veille-p" style="margin-bottom:0.8rem;"><b>Google Alerts</b> — Mots clés :</p>
+                <ul class="veille-ul" style="margin-bottom:1.2rem;">
+                    <li>THC Hydra pentest</li>
+                    <li>Hydra brute force</li>
+                    <li>attaque par dictionnaire</li>
+                    <li>test d'authentification SSH</li>
+                    <li>fail2ban hydra</li>
+                    <li>bruteforce sécurité entreprise</li>
+                    <li>outils pentest hydra</li>
+                </ul>
+                <p class="veille-p" style="margin-bottom:0.8rem;"><b>Feedly (sources suivies)</b> — Sites et flux :</p>
+                <ul class="veille-ul">
+                    <li>Kali Linux Blog</li>
+                    <li>The Hacker News</li>
+                    <li>ZDNet – Sécurité</li>
+                    <li>CERT-FR</li>
+                    <li>OWASP Blog</li>
+                    <li>PortSwigger (Burp Suite)</li>
+                    <li>HackTricks</li>
+                    <li>GitHub – THC-Hydra</li>
+                    <li>SecurityWeek</li>
+                    <li>SentinelLabs</li>
+                </ul>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">Comment sont traitées les informations ?</div>
+                <ol class="veille-ol">
+                    <li><b>Collecte</b>
+                        <ul>
+                            <li>Réception automatique des articles via Google Alerts et Feedly.</li>
+                        </ul>
+                    </li>
+                    <li><b>Tri</b>
+                        <ul>
+                            <li>Je garde uniquement les informations liées : aux attaques par bruteforce, aux failles d'authentification, aux protections (MFA, rate limiting, fail2ban), aux outils concurrents d'Hydra</li>
+                        </ul>
+                    </li>
+                    <li><b>Analyse</b>
+                        <ul>
+                            <li>Je vérifie : ce qui change dans les techniques d'attaque, pourquoi Hydra devient plus ou moins efficace, quelles nouvelles protections apparaissent</li>
+                        </ul>
+                    </li>
+                    <li><b>Synthèse</b>
+                        <ul>
+                            <li>Je résume les points importants dans une fiche de veille : nouvelles tendances, risques, bonnes pratiques de défense</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">Objectif de ma veille sur Hydra</div>
+                <ul class="veille-ul">
+                    <li>Comprendre l'évolution des attaques par mot de passe</li>
+                    <li>Identifier les limites actuelles d'Hydra</li>
+                    <li>Suivre les nouvelles protections (MFA, passkeys, Zero Trust)</li>
+                    <li>Adapter les recommandations de sécurité en entreprise</li>
+                </ul>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">L'importance d'Hydra dans le métier d'Administrateur Sécurité</div>
+                <p class="veille-p">Hydra occupe une place importante dans le métier d'<b>Administrateur Sécurité</b> car il permet de <b>mieux comprendre les attaques pour mieux défendre les systèmes</b>. Même si l'administrateur sécurité n'est pas un pirate, il doit connaître les outils utilisés par les attaquants afin d'anticiper leurs techniques.</p>
+
+                <p class="veille-p" style="margin-top:1rem;"><b>1 — Comprendre la menace réelle</b></p>
+                <p class="veille-p">Hydra permet à l'administrateur sécurité de comprendre comment fonctionnent les <b>attaques par brute force</b> et par dictionnaire, de visualiser concrètement comment un attaquant peut tester des milliers de mots de passe en peu de temps, et de prendre conscience du danger des <b>mots de passe faibles</b> dans l'entreprise.</p>
+                <p class="veille-p">👉 <b>Impact métier :</b> Cette compréhension aide l'administrateur à mettre en place des politiques de mots de passe adaptées et réalistes.</p>
+
+                <p class="veille-p" style="margin-top:1rem;"><b>2 — Tester la résistance des systèmes (prévention)</b></p>
+                <p class="veille-p">Dans un cadre légal et autorisé, Hydra peut être utilisé pour tester les services sensibles comme SSH, RDP, FTP, Portails web internes, vérifier si un compte peut être compromis facilement, et identifier les systèmes mal configurés.</p>
+                <p class="veille-p">👉 <b>Rôle de l'Admin Sécurité :</b> Plutôt que d'attendre une attaque, il <b>simule une attaque pour corriger les failles avant qu'un pirate ne les exploite.</b></p>
+
+                <p class="veille-p" style="margin-top:1rem;"><b>3 — Améliorer les protections en entreprise</b></p>
+                <p class="veille-p">Grâce aux tests avec Hydra, l'administrateur sécurité peut décider de mettre en place : <b>Fail2ban</b> ou blocage après X tentatives, <b>MFA</b> (authentification à double facteur), Limitation des connexions, <b>Journalisation et alertes</b> en cas de tentatives suspectes, Durcissement des services (hardening).</p>
+                <p class="veille-p">👉 <b>Exemple concret en entreprise :</b> Si Hydra réussit à casser un accès SSH en 10 minutes → l'admin sécurité sait qu'il faut renforcer le mot de passe, activer MFA, ou désactiver l'accès par mot de passe.</p>
+
+                <p class="veille-p" style="margin-top:1rem;"><b>4 — Outil pédagogique et professionnel</b></p>
+                <p class="veille-p">Pour un futur administrateur sécurité, Hydra est important car il fait partie des <b>outils standards de la cybersécurité</b> (présent sur Kali Linux), il aide à développer une <b>mentalité défensive basée sur l'attaque</b> ("penser comme un hacker pour mieux protéger"), et il est souvent évoqué en BTS SIO, formations cybersécurité, audits sécurité, et certifications.</p>
+            </div>
+
+            <div class="veille-section">
+                <div class="veille-h3">5 — Phrase de synthèse</div>
+                <div class="veille-quote">"Hydra est important dans le métier d'administrateur sécurité car il permet de comprendre les techniques d'attaque par brute force, de tester la robustesse des systèmes d'authentification et d'améliorer les mesures de protection en entreprise afin de prévenir les intrusions."</div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Curseur custom
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Halo nav
+        function spawnHalo(x, y) {
+            const halo = document.getElementById('nav-halo');
+            const size = 300 + Math.random() * 100;
+            halo.style.width  = size + 'px';
+            halo.style.height = size + 'px';
+            halo.style.left   = x + 'px';
+            halo.style.top    = y + 'px';
+            halo.style.animation = 'none';
+            void halo.offsetWidth;
+            halo.style.animation = 'halo-burst 0.7s ease-out forwards';
+        }
+
+        function triggerNav(pageId, imgUrl, event) {
+            // Halo aléatoire : 60% de chances
+            if (Math.random() < 0.6 && event) {
+                spawnHalo(event.clientX, event.clientY);
+            }
+
+            document.getElementById('poster-img').src = imgUrl;
+            const impact = document.getElementById('haki-impact');
+            const coo    = document.getElementById('news-coo');
+            const container = document.getElementById('wanted-container');
+            
+            impact.style.animation = 'none';
+            void impact.offsetWidth;
+            impact.style.animation = 'reiatsu 0.5s ease-out';
+            
+            coo.style.transition = "all 1s linear";
+            coo.style.right = "120%";
+
+            setTimeout(() => {
+                container.style.display = 'block';
+                container.animate([
+                    { transform: 'translate(-50%, -50%) scale(0) rotate(-10deg)', opacity: 0 }, 
+                    { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 }
+                ], { duration: 300, fill: 'forwards' });
+                
+                setTimeout(() => {
+                    container.animate([{ opacity: 1 }, { opacity: 0, scale: 1.2 }], { duration: 200, fill: 'forwards' });
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                    document.getElementById(pageId).classList.add('active');
+                    window.scrollTo(0, 0);
+                    
+                    setTimeout(() => {
+                        container.style.display = 'none';
+                        coo.style.transition = "none";
+                        coo.style.right = "-200px";
+                    }, 200);
+                }, 1200);
+            }, 400);
+        }
+    </script>
+</body>
+</html>
