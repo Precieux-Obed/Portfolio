@@ -385,139 +385,156 @@
 
     <!-- VEILLE -->
     <section id="veille" class="page">
-        <h1 class="title-huge">VEILLE_<em>TECH</em></h1>
-        <div class="veille-content">
+    <h1 class="title-huge">VEILLE_<em>TECH</em></h1>
+    <div class="veille-content">
 
-            <div class="veille-section">
-                <div class="veille-h2">HYDRA (PENTEST)</div>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">QU'EST-CE QUE HYDRA ?</div>
-                <p class="veille-p"><b>Hydra</b> (souvent appelé <em>THC-Hydra</em>) est un outil open source de <b>bruteforce d'authentification</b> utilisé en tests d'intrusion (pentest).</p>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">Objectif principal</div>
-                <p class="veille-p">Tester la <b>robustesse des mécanismes d'authentification</b> d'un système en essayant automatiquement des combinaisons de mots de passe.</p>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">Protocoles supportés (les plus courants)</div>
-                <p class="veille-p">Hydra fonctionne sur de nombreux services, notamment :</p>
-                <ul class="veille-ul">
-                    <li>SSH</li>
-                    <li>FTP</li>
-                    <li>HTTP / HTTPS (login web)</li>
-                    <li>Telnet</li>
-                    <li>SMB</li>
-                    <li>RDP</li>
-                    <li>SMTP / POP3 / IMAP</li>
-                </ul>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">Cas d'usage en pentest — Utilisations légitimes (en audit sécurité)</div>
-                <p class="veille-p">Hydra est utilisé pour :</p>
-                <ul class="veille-ul">
-                    <li>Vérifier si des <b>mots de passe faibles</b> existent sur un système</li>
-                    <li>Tester la <b>résistance à une attaque brute force</b></li>
-                    <li>Évaluer la présence de <b>protections anti-bruteforce</b></li>
-                    <li>Simuler une attaque réaliste d'un attaquant externe</li>
-                </ul>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">Ma méthode de veille</div>
-                <p class="veille-p" style="margin-bottom:0.8rem;"><b>Google Alerts</b> — Mots clés :</p>
-                <ul class="veille-ul" style="margin-bottom:1.2rem;">
-                    <li>THC Hydra pentest</li>
-                    <li>Hydra brute force</li>
-                    <li>attaque par dictionnaire</li>
-                    <li>test d'authentification SSH</li>
-                    <li>fail2ban hydra</li>
-                    <li>bruteforce sécurité entreprise</li>
-                    <li>outils pentest hydra</li>
-                </ul>
-                <p class="veille-p" style="margin-bottom:0.8rem;"><b>Feedly (sources suivies)</b> — Sites et flux :</p>
-                <ul class="veille-ul">
-                    <li>Kali Linux Blog</li>
-                    <li>The Hacker News</li>
-                    <li>ZDNet – Sécurité</li>
-                    <li>CERT-FR</li>
-                    <li>OWASP Blog</li>
-                    <li>PortSwigger (Burp Suite)</li>
-                    <li>HackTricks</li>
-                    <li>GitHub – THC-Hydra</li>
-                    <li>SecurityWeek</li>
-                    <li>SentinelLabs</li>
-                </ul>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">Comment sont traitées les informations ?</div>
-                <ol class="veille-ol">
-                    <li><b>Collecte</b>
-                        <ul>
-                            <li>Réception automatique des articles via Google Alerts et Feedly.</li>
-                        </ul>
-                    </li>
-                    <li><b>Tri</b>
-                        <ul>
-                            <li>Je garde uniquement les informations liées : aux attaques par bruteforce, aux failles d'authentification, aux protections (MFA, rate limiting, fail2ban), aux outils concurrents d'Hydra</li>
-                        </ul>
-                    </li>
-                    <li><b>Analyse</b>
-                        <ul>
-                            <li>Je vérifie : ce qui change dans les techniques d'attaque, pourquoi Hydra devient plus ou moins efficace, quelles nouvelles protections apparaissent</li>
-                        </ul>
-                    </li>
-                    <li><b>Synthèse</b>
-                        <ul>
-                            <li>Je résume les points importants dans une fiche de veille : nouvelles tendances, risques, bonnes pratiques de défense</li>
-                        </ul>
-                    </li>
-                </ol>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">Objectif de ma veille sur Hydra</div>
-                <ul class="veille-ul">
-                    <li>Comprendre l'évolution des attaques par mot de passe</li>
-                    <li>Identifier les limites actuelles d'Hydra</li>
-                    <li>Suivre les nouvelles protections (MFA, passkeys, Zero Trust)</li>
-                    <li>Adapter les recommandations de sécurité en entreprise</li>
-                </ul>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">L'importance d'Hydra dans le métier d'Administrateur Sécurité</div>
-                <p class="veille-p">Hydra occupe une place importante dans le métier d'<b>Administrateur Sécurité</b> car il permet de <b>mieux comprendre les attaques pour mieux défendre les systèmes</b>. Même si l'administrateur sécurité n'est pas un pirate, il doit connaître les outils utilisés par les attaquants afin d'anticiper leurs techniques.</p>
-
-                <p class="veille-p" style="margin-top:1rem;"><b>1 — Comprendre la menace réelle</b></p>
-                <p class="veille-p">Hydra permet à l'administrateur sécurité de comprendre comment fonctionnent les <b>attaques par brute force</b> et par dictionnaire, de visualiser concrètement comment un attaquant peut tester des milliers de mots de passe en peu de temps, et de prendre conscience du danger des <b>mots de passe faibles</b> dans l'entreprise.</p>
-                <p class="veille-p">👉 <b>Impact métier :</b> Cette compréhension aide l'administrateur à mettre en place des politiques de mots de passe adaptées et réalistes.</p>
-
-                <p class="veille-p" style="margin-top:1rem;"><b>2 — Tester la résistance des systèmes (prévention)</b></p>
-                <p class="veille-p">Dans un cadre légal et autorisé, Hydra peut être utilisé pour tester les services sensibles comme SSH, RDP, FTP, Portails web internes, vérifier si un compte peut être compromis facilement, et identifier les systèmes mal configurés.</p>
-                <p class="veille-p">👉 <b>Rôle de l'Admin Sécurité :</b> Plutôt que d'attendre une attaque, il <b>simule une attaque pour corriger les failles avant qu'un pirate ne les exploite.</b></p>
-
-                <p class="veille-p" style="margin-top:1rem;"><b>3 — Améliorer les protections en entreprise</b></p>
-                <p class="veille-p">Grâce aux tests avec Hydra, l'administrateur sécurité peut décider de mettre en place : <b>Fail2ban</b> ou blocage après X tentatives, <b>MFA</b> (authentification à double facteur), Limitation des connexions, <b>Journalisation et alertes</b> en cas de tentatives suspectes, Durcissement des services (hardening).</p>
-                <p class="veille-p">👉 <b>Exemple concret en entreprise :</b> Si Hydra réussit à casser un accès SSH en 10 minutes → l'admin sécurité sait qu'il faut renforcer le mot de passe, activer MFA, ou désactiver l'accès par mot de passe.</p>
-
-                <p class="veille-p" style="margin-top:1rem;"><b>4 — Outil pédagogique et professionnel</b></p>
-                <p class="veille-p">Pour un futur administrateur sécurité, Hydra est important car il fait partie des <b>outils standards de la cybersécurité</b> (présent sur Kali Linux), il aide à développer une <b>mentalité défensive basée sur l'attaque</b> ("penser comme un hacker pour mieux protéger"), et il est souvent évoqué en BTS SIO, formations cybersécurité, audits sécurité, et certifications.</p>
-            </div>
-
-            <div class="veille-section">
-                <div class="veille-h3">5 — Phrase de synthèse</div>
-                <div class="veille-quote">"Hydra est important dans le métier d'administrateur sécurité car il permet de comprendre les techniques d'attaque par brute force, de tester la robustesse des systèmes d'authentification et d'améliorer les mesures de protection en entreprise afin de prévenir les intrusions."</div>
-            </div>
-
+        <div class="veille-section">
+            <div class="veille-h2">RESPONDER (PENTEST / RÉSEAU)</div>
         </div>
-    </section>
 
+        <div class="veille-section">
+            <div class="veille-h3">QU'EST-CE QUE RESPONDER ?</div>
+            <p class="veille-p"><b>Responder</b> est un outil open source d'<b>empoisonnement de protocoles réseau</b> et de <b>capture d'authentification</b> utilisé en tests d'intrusion (pentest).</p>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Objectif principal</div>
+            <p class="veille-p">Tester la <b>robustesse des configurations réseau</b> d'une entreprise en interceptant automatiquement les requêtes de secours mal sécurisées pour collecter des empreintes de mots de passe (hashes).</p>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Protocoles ciblés (les plus courants)</div>
+            <p class="veille-p">Responder fonctionne sur de nombreux services réseau, notamment :</p>
+            <ul class="veille-ul">
+                <li>LLMNR (Link-Local Multicast Name Resolution)</li>
+                <li>NBT-NS (NetBIOS Name Service)</li>
+                <li>mDNS (Multicast DNS)</li>
+                <li>WPAD (Découverte automatique de proxy web)</li>
+                <li>DHCPv6 (Attaques par interception via le protocole IPv6)</li>
+                <li>SMB / HTTP / FTP / LDAP (Pour forcer la capture d'authentification)</li>
+            </ul>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Cas d'usage en pentest — Utilisations légitimes (en audit sécurité)</div>
+            <p class="veille-p">Responder est utilisé pour :</p>
+            <ul class="veille-ul">
+                <li>Vérifier si des protocoles réseau obsolètes ou dangereux sont actifs sur le réseau local</li>
+                <li>Tester la résistance à une attaque par interception de flux (Man-in-the-Middle)</li>
+                <li>Évaluer la vulnérabilité des postes de travail face au vol de hashes NTLM</li>
+                <li>Simuler une attaque réaliste d'un attaquant déjà introduit dans le réseau interne</li>
+            </ul>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Ma méthode de veille</div>
+            <p class="veille-p" style="margin-bottom:0.8rem;"><b>Google Alerts</b> — Mots clés :</p>
+            <ul class="veille-ul" style="margin-bottom:1.2rem;">
+                <li>Responder lgandx GitHub</li>
+                <li>LLMNR NBT-NS poisoning</li>
+                <li>NTLM relay attack</li>
+                <li>Désactiver LLMNR GPO Windows</li>
+                <li>DHCPv6 spoofing security</li>
+                <li>Sécurité réseau local Active Directory</li>
+            </ul>
+            <p class="veille-p" style="margin-bottom:0.8rem;"><b>Feedly (sources suivies)</b> — Sites et flux :</p>
+            <ul class="veille-ul">
+                <li>Kali Linux Blog</li>
+                <li>The Hacker News</li>
+                <li>TrustedSec Blog</li>
+                <li>HackTricks (Networking / Windows)</li>
+                <li>GitHub – lgandx/Responder</li>
+                <li>Microsoft Security Response Center (MSRC)</li>
+                <li>ANSSI (Notes techniques et alertes du CERT-FR)</li>
+            </ul>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Comment sont traitées les informations ?</div>
+            <ol class="veille-ol">
+                <li><b>Collecte</b>
+                    <ul>
+                        <li>Réception automatique des articles via Google Alerts et Feedly concernant les attaques réseau, les protocoles Microsoft et les outils de pentest.</li>
+                    </ul>
+                </li>
+                <li><b>Tri</b>
+                    <ul>
+                        <li>Je garde uniquement les informations liées : aux attaques par empoisonnement de flux, au relais NTLM, aux correctifs de sécurité des systèmes d'exploitation, et aux configurations de durcissement réseau (GPO).</li>
+                    </ul>
+                </li>
+                <li><b>Analyse</b>
+                    <ul>
+                        <li>Je vérifie : ce qui change dans les configurations par défaut des OS modernes (comme Windows 11 ou Server 2025), pourquoi Responder reste efficace malgré les mises à jour, et quelles nouvelles fonctionnalités apparaissent sur l'outil (comme les attaques IPv6).</li>
+                    </ul>
+                </li>
+                <li><b>Synthèse</b>
+                    <ul>
+                        <li>Je résume les points importants dans une fiche de veille : nouvelles tendances d'attaque, risks de compromission, et procédures de désactivation des protocoles vulnérables.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Exemples d'articles suivis dans ma veille</div>
+            <p class="veille-p">Pour valider cette veille, voici les trois types d'articles concrets analysés régulièrement :</p>
+            <p class="veille-p" style="margin-top:0.8rem;"><b>1 — L'article technique (Offensif) :</b> « HackTricks : LLMNR / NBT-NS Poisoning and Relay ». Cet article détaille le fonctionnement exact des commandes de Responder (ex: <code>python3 Responder.py -I eth0 -rdv</code>) et montre comment l'outil capture visuellement les identifiants.</p>
+            <p class="veille-p" style="margin-top:0.8rem;"><b>2 — La documentation officielle (Défensif) :</b> « Microsoft Learn : Disabling LLMNR/NetBIOS via Group Policy ». Ce guide explique comment utiliser les GPO pour couper ces protocoles à l'échelle d'une entreprise et imposer l'usage de Kerberos.</p>
+            <p class="veille-p" style="margin-top:0.8rem;"><b>3 — L'évolution de la menace (Actualité) :</b> « The Hacker News : MitM Attacks in Windows Domains via IPv6 ». Cet article démontre que Responder évolue et cible désormais l'IPv6 (activé par défaut sur Windows), ce qui en fait un outil toujours d'actualité.</p>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Pourquoi la veille technologique est vitale pour un Administrateur Sécurité ?</div>
+            <p class="veille-p">Faire une veille technologique n'est pas une option, c'est une compétence métier obligatoire pour plusieurs raisons stratégiques :</p>
+            <ul class="veille-ul">
+                <li><b>Anticiper l'obsolescence :</b> Des protocoles indispensables hier (comme NetBIOS) deviennent les failles majeures d'aujourd'hui. La veille permet de savoir quand une technologie devient dangereuse pour planifier son retrait.</li>
+                <li><b>Garder une longueur d'avance :</b> Les attaquants font progresser leurs outils en permanence. Sans veille, les défenses d'un administrateur restent figées alors que la menace évolue.</li>
+                <li><b>Prendre des décisions basées sur des risques réels :</b> La veille permet de prioriser les chantiers de sécurité en entreprise en se concentrant sur les failles les plus exploitées du moment.</li>
+            </ul>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">Objectif de ma veille sur Responder</div>
+            <ul class="veille-ul">
+                <li>Comprendre l'évolution des attaques par interception sur un réseau local</li>
+                <li>Identifier les faiblesses liées aux configurations par défaut des systèmes modernes</li>
+                <li>Suivre les nouvelles protections (transition NTLM vers Kerberos, SMB Signing)</li>
+                <li>Adapter les recommandations de sécurité et les GPO en entreprise</li>
+            </ul>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">L'importance de Responder dans le métier d'Administrateur Sécurité</div>
+            <p class="veille-p">L'outil Responder occupe une place importante dans le métier d'Administrateur Sécurité car il permet de mettre en lumière des vulnérabilités invisibles à l'œil nu situées au cœur même des protocoles réseau.</p>
+
+            <p class="veille-p" style="margin-top:1rem;"><b>1 — Comprendre la menace réelle</b></p>
+            <p class="veille-p">Responder permet à l'administrateur sécurité de comprendre comment fonctionnent les attaques par empoisonnement de flux (Spoofing) et de visualiser concrètement comment un attaquant peut intercepter des identifiants sans forcer de mot de passe, simplement en écoutant les machines bavardes du réseau.</p>
+            <p class="veille-p">👉 <b>Impact métier :</b> Cette compréhension aide l'administrateur à ne jamais faire confiance aux configurations réseau par défaut des systèmes.</p>
+
+            <p class="veille-p" style="margin-top:1rem;"><b>2 — Tester la résistance des systèmes (prévention)</b></p>
+            <p class="veille-p">Dans un cadre légal et autorisé, Responder peut être lancé quelques minutes sur le réseau pour cartographier les machines vulnérables, vérifier si des postes clients transmettent leurs hashes de connexion, et identifier les serveurs mal configurés.</p>
+            <p class="veille-p">👉 <b>Rôle de l'Admin Sécurité :</b> Plutôt que d'attendre une fuite de données, il simule l'interception pour corriger les failles avant qu'un pirate ne se branche sur le réseau.</p>
+
+            <p class="veille-p" style="margin-top:1rem;"><b>3 — Améliorer les protections en entreprise</b></p>
+            <p class="veille-p">Grâce aux tests et constats faits avec Responder, l'administrateur sécurité met en place des contre-mesures définitives :</p>
+            <ul class="veille-ul">
+                <li>Désactivation de LLMNR et NetBIOS via des stratégies de groupe (GPO) centralisées.</li>
+                <li>Activation de la signature SMB (SMB Signing) pour empêcher le relais de session.</li>
+                <li>Désactivation ou sécurisation de l'IPv6 s'il n'est pas utilisé.</li>
+            </ul>
+            <p class="veille-p" style="margin-top:0.5rem;">👉 <b>Exemple concret en entreprise :</b> Si Responder capture le hash d'un utilisateur suite à une faute de frappe dans l'explorateur de fichiers &rarr; l'admin sécurité sait qu'il doit déployer une GPO pour couper immédiatement le protocole LLMNR.</p>
+
+            <p class="veille-p" style="margin-top:1rem;"><b>4 — Outil pédagogique et professionnel</b></p>
+            <p class="veille-p">Pour un futur administrateur sécurité, Responder est important car il fait partie des outils standards de la cybersécurité (présent sur Kali Linux). Il aide à développer une solide culture réseau (modèle OSI, résolution de noms, fonctionnement d'Active Directory) et s'inscrit parfaitement dans les exigences de diplômes comme le BTS SIO (option SISR).</p>
+        </div>
+
+        <div class="veille-section">
+            <div class="veille-h3">5 — Phrase de synthèse</div>
+            <div class="veille-quote">"Responder est un outil fondamental pour un administrateur sécurité car il démontre comment les configurations réseau historiques par défaut peuvent être détournées pour voler des identifiants, permettant ainsi de mettre en place les contre-mesures nécessaires pour verrouiller définitivement l'infrastructure interne."</div>
+        </div>
+
+    </div>
+</section>
     <script>
         // Curseur custom
         const cursor = document.getElementById('custom-cursor');
